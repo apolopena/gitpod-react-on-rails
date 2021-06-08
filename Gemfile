@@ -19,7 +19,7 @@ gem 'webpacker', '~> 5.0'
 # ES6 react and rails
 gem 'react_on_rails', '12.2.0'
 # ruby node bridge (required)
-#gem 'mini_racer', platforms: :ruby
+gem 'mini_racer', platforms: :ruby
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
