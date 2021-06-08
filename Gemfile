@@ -7,7 +7,8 @@ gem 'rails', '~> 6.1.3', '>= 6.1.3.1'
 gem 'pg', '~> 1.1'
 # Use Puma as the app server
 gem 'puma', '~> 5.0'
-# Use SCSS for stylesheets.
+# Use SCSS for stylesheets but pin sassc to v2.1.0 to save a couple minutes of compile time
+gem 'sassc', :git => 'git://github.com/sass/sassc-ruby.git', :tag => 'v2.1.0'
 gem 'sass-rails'
 #gem 'sass-rails', '~> 5.0' # sass-rails is at end of lifetime
 # Use Uglifier as compressor for JavaScript assets
