@@ -7,7 +7,9 @@ gem 'rails', '~> 6.1.3', '>= 6.1.3.1'
 gem 'pg', '~> 1.1'
 # Use Puma as the app server
 gem 'puma', '~> 5.0'
-# Use SCSS for stylesheets. Pin sasscc-rails to v2.1.0 to avoid 3-9 minute compile time. See https://github.com/sass/sassc-ruby/issues/189
+# Use SCSS for stylesheets.
+# Pin sassc-rails to use sassc v2.1.0 to avoid 3-9 minute compile time. See https://github.com/sass/sassc-ruby/issues/189
+gem 'sassc', :git => 'git://github.com/sass/sassc-ruby.git', :tag => 'v2.1.0'
 gem 'sassc-rails', '2.1.0'
 #gem 'sass-rails', '~> 5.0' # sass-rails is at end of lifetime
 # Use Uglifier as compressor for JavaScript assets
