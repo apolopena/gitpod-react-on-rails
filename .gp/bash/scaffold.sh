@@ -54,14 +54,13 @@ if [[ ! -d config/webpack ]]; then
   ec=$?
   if [[ $ec -eq 0 ]]; then
     stop_spinner $ec
-    _pass_msg "$msg"
   else
     stop_spinner $ec
     _fail_msg "$msg"
   fi
 else
-  warn_msg "Webpacker appears to be installed"
-  warn_msg "skipping Webpacker installation"
+  _warn_msg "Webpacker appears to be installed"
+  _warn_msg "skipping Webpacker installation"
 fi
 # run rails webpacker:install:react blindly as there is no hook to determine if it has been run already
 msg="Configuring Webpacker to support react.js"
@@ -70,15 +69,20 @@ yes | rails webpacker:install:react --silent 2> >(grep -v warning 1>&2) > /dev/n
 ec=$?
 if [[ $ec -eq 0 ]]; then
   stop_spinner $ec
-  _pass_msg "$msg"
 else
   stop_spinner $ec
   _fail_msg "$msg"
 fi
 
 if [[ -n $(git status -s) ]]; then
+  msg="Commiting unstaged files to your local repository"
+  start_spinner "$msg"
   if git add -A && git commit -m "Initial scaffolding" >/dev/null 2>&1; then
+    stop_spinner 0
     git_committed=1
+  else
+    stop_spinner 1
+    _fail_msg "$msg"
   fi
 fi
 if [[ ! -f config/initializers/react_on_rails.rb ]]; then
@@ -90,18 +94,17 @@ if [[ ! -f config/initializers/react_on_rails.rb ]]; then
   ec=$?
   if [[ $ec -eq 0 ]]; then
     stop_spinner 0
-    _pass_msg "$msg"
   else
     stop_spinner $ec
     _fail_msg "$msg"
   fi
 else
-  warn_msg "React on Rails Scaffolding appears to already be in place"
-  warn_msg "Skipping generation of React on Rails Scaffolding"
+  _warn_msg "React on Rails Scaffolding appears to already be in place"
+  _warn_msg "Skipping generation of React on Rails Scaffolding"
 fi
 if [[ -n $git_committed ]]; then
-  _info_msg "Unstaged changes were committed to the git repository using the message 'Initial scaffolding'"
-  _info_msg "To view the files for this commit before you push them run the command:"
+  _info_msg "Unstaged changes were committed to the local git repository using the message 'Initial scaffolding'"
+  _info_msg "To view the files for this commit before you push them to your remote run the command:"
   _info_msg "git show --name-only --oneline $(git rev-parse --short HEAD)"
 fi
 echo -e "$c_hot_pink""Scaffolding react on rails is done$c_end"
