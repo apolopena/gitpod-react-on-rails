@@ -26,7 +26,16 @@ function main() {
     path="/$1"
     port=3000
   fi
-  gp preview "$(gp url "$port")$path" > /dev/null 2>&1
+  if [[ $(bash .gp/bash/helpers.sh is_inited) == 0 ]]; then
+    . .gp/bash/spinner.sh &&
+    start_spinner "Opening preview when system is ready..."
+    gp sync-await system-ready &&
+    stop_spinner 0 &&
+    gp await-port "$port" &&
+    gp preview "$(gp url "$port")$path" > /dev/null 2>&1
+  else
+    gp preview "$(gp url "$port")$path" > /dev/null 2>&1
+  fi;
 }
 
 main "$@"
