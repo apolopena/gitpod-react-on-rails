@@ -11,8 +11,8 @@ RUN bash -lc "rvm install ruby-$(cat /tmp/.ruby-version) && rvm use ruby-$(cat /
 RUN echo "rvm_gems_path=/workspace/.rvm" > ~/.rvmrc
 
 # Logs
-RUN sudo touch /var/log/workspace-init.log &&
-    sudo chmod 666 /var/log/workspace-init.log
+RUN sudo touch /var/log/workspace-init.log \
+    && sudo chmod 666 /var/log/workspace-init.log
 
 # Aliases
 COPY --chown=gitpod:gitpod .gp/bash/.bash_aliases /home/gitpod
