@@ -38,6 +38,15 @@ _fail_msg() {
   echo -e "$c_red$prefix$c_end$c_blue$script_path$c_end$c_red:$c_end$c_orange $msg$c_end"
 }
 
+_warn_msg() {
+  echo -e "$c_orange""$1$c_end"
+}
+
+_info_msg() {
+  echo -e "$c_blue""$1$c_end"
+}
+
+echo -e "$c_hot_pink""Scaffolding react on rails, you should only ever do this once.$c_end"
 if [[ ! -d config/webpack ]]; then
   msg="Installing Webpacker"
   start_spinner "$msg"
@@ -51,29 +60,25 @@ if [[ ! -d config/webpack ]]; then
     _fail_msg "$msg"
   fi
 else
-  echo "Webpacker appears to be installed"
-  echo "skipping Webpacker installation"
+  warn_msg "Webpacker appears to be installed"
+  warn_msg "skipping Webpacker installation"
 fi
-if [[ ! -f babel.config.js ]]; then
-  msg="Configuring Webpacker to support react.js"
-  start_spinner "$msg"
-  yes | rails webpacker:install:react --silent 2> >(grep -v warning 1>&2) > /dev/null 2>&1
-  ec=$?
-  if [[ $ec -eq 0 ]]; then
-    stop_spinner $ec
-    _pass_msg "$msg"
-  else
-    stop_spinner $ec
-    _fail_msg "$msg"
-  fi
+# run rails webpacker:install:react blindly as there is no hook to determine if it has been run already
+msg="Configuring Webpacker to support react.js"
+start_spinner "$msg"
+yes | rails webpacker:install:react --silent 2> >(grep -v warning 1>&2) > /dev/null 2>&1
+ec=$?
+if [[ $ec -eq 0 ]]; then
+  stop_spinner $ec
+  _pass_msg "$msg"
 else
-  echo "Webpacker appears to already be configured to support react.js"
-  echo "Skipping Webpack configuration to support react.js"
+  stop_spinner $ec
+  _fail_msg "$msg"
 fi
+
 if [[ -n $(git status -s) ]]; then
   if git add -A && git commit -m "Initial scaffolding"; then
-    echo "Unstaged changes were committed to the git repository using the message 'Initial scaffolding'"
-    echo "Please push these changes to your remote respoistory as soon as possible with: git push"
+    git_committed=1
   fi
 fi
 if [[ ! -f config/initializers/react_on_rails.rb ]]; then
@@ -91,7 +96,13 @@ if [[ ! -f config/initializers/react_on_rails.rb ]]; then
     _fail_msg "$msg"
   fi
 else
-  echo "React on Rails Scaffolding appears to already be in place"
-  echo "Skipping generation of React on Rails Scaffolding"
+  warn_msg "React on Rails Scaffolding appears to already be in place"
+  warn_msg "Skipping generation of React on Rails Scaffolding"
 fi
+if [[ -n $git_committed ]]; then
+  _info_msg "Unstaged changes were committed to the git repository using the message 'Initial scaffolding'"
+  _info_msg "To view the files for this commit before you push them run the command:"
+  _info_msg "git show --name-only --oneline $(git rev-parse --short HEAD)"
+fi
+echo -e "$c_hot_pink""Scaffolding react on rails is done$c_end"
 
