@@ -77,7 +77,7 @@ else
 fi
 
 if [[ -n $(git status -s) ]]; then
-  if git add -A && git commit -m "Initial scaffolding"; then
+  if git add -A && git commit -m "Initial scaffolding" >/dev/null 2>&1; then
     git_committed=1
   fi
 fi
@@ -86,10 +86,10 @@ if [[ ! -f config/initializers/react_on_rails.rb ]]; then
   [[ $1 == '--use-redux' ]] && optional_flag='--redux' && msg="${msg} with the flag $optional_flag"
   start_spinner "$msg"
   # rails generate react_on_rails:install $optional_flag
-  yes | rails generate react_on_rails:install "$optional_flag" --ignore-warnings --skip --quiet 2> >(grep -v warning 1>&2) > /dev/null 2>&1
+  rails generate react_on_rails:install "$optional_flag" --ignore-warnings --skip --quiet > /dev/null 2>&1
   ec=$?
   if [[ $ec -eq 0 ]]; then
-    stop_spinner $ec
+    stop_spinner 0
     _pass_msg "$msg"
   else
     stop_spinner $ec
