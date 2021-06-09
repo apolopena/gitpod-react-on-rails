@@ -19,8 +19,7 @@ tasks:
   - before: bash .gp/bash/before-tasks.sh
     init: |
       bash .gp/bash/init-gitpod.sh
-      bash .gp/bash/start-server.sh &&
-      gp sync-done system-ready
+      bash .gp/bash/start-server.sh
     name: Server
   - openMode: split-right
     command: |
