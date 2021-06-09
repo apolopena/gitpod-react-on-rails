@@ -1,6 +1,9 @@
 FROM gitpod/workspace-postgres
 USER gitpod
 
+# Increment the value to bust the docker image cache
+ENV INVALIDATE_CACHE=2
+
 # Install the Ruby version specified in '.ruby-version'
 COPY --chown=gitpod:gitpod .ruby-version /tmp
 RUN echo "rvm_gems_path=/home/gitpod/.rvm" > ~/.rvmrc
