@@ -19,16 +19,18 @@ tasks:
   - before: bash .gp/bash/before-tasks.sh
     init: |
       bash .gp/bash/init-gitpod.sh
-      bash .gp/bash/start-server.sh
-    name: Server
+      bash .gp/bash/init-optional-scaffolding.sh
+      bash .gp/bash/init-project.sh
+      bash .gp/bash/init-complete.sh
+    name: Main Terminal
   - openMode: split-right
     command: |
-      . .gp/bash/spinner.sh &&
-      start_spinner "Opening preview when system is ready..."
-      gp sync-await system-ready &&
-      stop_spinner 0 &&
-      if bash .gp/bash/open-preview.sh hello_world; then exit; else bash .gp/bash/patch-preview.sh; fi
-    name: Main Terminal
+      bash .gp/bash/start-server.sh
+    name: Web Server
+  - openMode: split-right
+    command: |
+      if bash .gp/bash/open-preview.sh; then exit; else bash .gp/bash/patch-preview.sh; fi
+    name: Extra Terminal
 
 vscode:
   extensions:

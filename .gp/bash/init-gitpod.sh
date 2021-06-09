@@ -15,13 +15,9 @@
 # BEGIN: Initialize
 bundle install &&
 rake db:create &&
-gem install foreman &&
-rails webpacker:install &&
-rails webpacker:install:react &&
-git add -A && git commit -m "Initial scaffolding" &&
-cp Gemfile tmp/__ && rails generate react_on_rails:install && mv tmp/__ Gemfile
+gem install foreman
 # END: Initialize
 
-# Always do this last
-gp sync-done gitpod-inited
+# handle scaffolding
+bash .gp/bash/init-scaffolding.sh
 
