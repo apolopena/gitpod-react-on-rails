@@ -19,7 +19,7 @@ tasks:
   - before: bash .gp/bash/before-tasks.sh
     init: |
       bash .gp/bash/init-gitpod.sh
-      bash .gp/bash/init-optional-scaffolding.sh
+      bash .gp/bash/init-scaffolding.sh
       bash .gp/bash/init-project.sh
       bash .gp/bash/init-complete.sh
     name: Main Terminal
