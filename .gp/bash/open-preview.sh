@@ -16,25 +16,17 @@ echo -e "\e[1;31mThis command can only be run from the project root of a gitpod 
 exit 1
 
 function main() {
-  local path port
+  local path
+  local port=3000
   [[ $1 == '-h' || $1 == '--help' ]] && cat .gp/snippets/messages/op-help.txt && exit 0
   if [[ $1 =~ ^-[1-9][0-9]+$ ]]; then
     port="${1:1}"
     path="/$2"
   else
     path="/$1"
-    port=$(bash .gp/bash/helpers.sh get_default_server_port)
+    port=3000
   fi
-  if [[ $(bash .gp/bash/helpers.sh is_inited) == 0 ]]; then
-    . .gp/bash/spinner.sh &&
-    start_spinner "Opening preview when system is ready..."
-    gp sync-await gitpod-inited &&
-    stop_spinner 0 &&
-    gp await-port "$port" &&
-    gp preview "$(gp url "$port")$path" > /dev/null 2>&1
-  else
-    gp preview "$(gp url "$port")$path" > /dev/null 2>&1
-  fi;
+  gp preview "$(gp url "$port")$path" > /dev/null 2>&1
 }
 
 main "$@"
