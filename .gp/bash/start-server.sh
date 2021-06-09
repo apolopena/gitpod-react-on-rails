@@ -20,4 +20,4 @@ gp await-port 5432 &&
 start_spinner "Starting server when system is ready..." &&
 gp sync-await gitpod-inited &&
 stop_spinner $? &&
-bash -c "foreman start -f Procfile.dev-hmr" & gp sync-done system-ready
+bash -c "foreman start -f Procfile.dev-hmr" & sleep 8 && gp sync-done system-ready
