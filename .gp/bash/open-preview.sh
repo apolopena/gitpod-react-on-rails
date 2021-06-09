@@ -5,7 +5,7 @@
 #
 # open-preview.sh
 # Description:
-# Oopens an integrated preview browser
+# Opens an integrated preview browser
 # either to the web root if no argument is passed in
 # or to the specified path segment if $1 is passed in
 # Can take a port option to open a specific port, for example op -3005
