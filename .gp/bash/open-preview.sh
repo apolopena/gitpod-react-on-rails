@@ -24,7 +24,6 @@ function main() {
     path="/$2"
   else
     path="/$1"
-    port=$(bash .gp/bash/helpers.sh get_default_server_port)
   fi
   gp preview "$(gp url "$port")$path" > /dev/null 2>&1
 }
