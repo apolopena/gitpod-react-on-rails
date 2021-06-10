@@ -41,6 +41,8 @@ _help() {
 [[ $1 == 'stop' && -z $(pgrep foreman) ]] && red "Foreman is not running, command aborted" && exit 1
 [[ ! -f Procfile.dev-hmr ]] && red "Procfile.dev-hmr is required but not found, command Aborted" && exit 1
 
+[[ $1 == 'stop' ]] && pkill foreman && exit $?
+
 if [[ $(gem list foreman -i) == 'false' ]]; then
   msg="Installing gem: foreman"
   start_spinner "$msg"
