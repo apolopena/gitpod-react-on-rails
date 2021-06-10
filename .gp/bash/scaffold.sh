@@ -103,10 +103,20 @@ else
   _warn_msg "React on Rails Scaffolding appears to already be in place"
   _warn_msg "Skipping generation of React on Rails Scaffolding"
 fi
+
+msg="Finishing up, running: bundle && yarn"
+start_spinner "$msg"
+bundle > /dev/null 2>&1 && yarn > /dev/null 2>&1
+if [[ $ec -eq 0 ]]; then
+  stop_spinner 0
+else
+  stop_spinner $ec
+  _fail_msg "$msg"
+fi
+
 if [[ -n $git_committed ]]; then
   _info_msg "Unstaged changes were committed to the local git repository using the message 'Initial scaffolding'"
   _info_msg "To view the files for this commit before you push them to your remote run the command:"
   _info_msg "git show --name-only --oneline $(git rev-parse --short HEAD)"
 fi
 echo -e "$c_hot_pink""Scaffolding react on rails is done$c_end"
-
