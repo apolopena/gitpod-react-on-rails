@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: MIT
 # Copyright © 2021 Apolo Pena
 #
-# serverctl.sh
+# dserver.sh
 # Description:
 # Starts puma and or webpack-dev-server via foreman
 #
