@@ -39,7 +39,7 @@ _help() {
 [[ $1 != 'start' && $1 != 'stop' ]] && red "Invalid command or flag: $1" && _help && exit 1
 [[ $1 == 'start' && -n $(pgrep foreman) ]] && red "Foreman is already running, command aborted" && exit 1
 [[ $1 == 'stop' && -z $(pgrep foreman) ]] && red "Foreman is not running, command aborted" && exit 1
-[[ ! -f Procfile.dev-hmr ]] && red "Procfile.dev-hmr is required but not found, command Aborted" && exit 1
+[[ ! -f Procfile.dev-hmr ]] && red "Procfile.dev-hmr is required but not found, command aborted" && exit 1
 
 [[ $1 == 'stop' ]] && pkill foreman && exit $?
 
