@@ -75,7 +75,7 @@ else
 fi
 
 if [[ -n $(git status -s) ]]; then
-  msg="Commiting unstaged files to your local repository"
+  msg="Committing unstaged files to your local repository"
   start_spinner "$msg"
   if git add -A && git commit -m "Initial scaffolding" >/dev/null 2>&1; then
     stop_spinner 0
