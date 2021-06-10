@@ -37,14 +37,13 @@ _help() {
 [[ $1 == '-v' || $1 == '--version' ]] && _version && exit 0
 [[ -z $1 || $1 == '-h' || $1 == '--help' ]] && _help && exit 0
 [[ $1 != 'start' && $1 != 'stop' ]] && red "Invalid command or flag: $1" && _help && exit 1
-[[ $1 == 'start' && -n $(prgrep foreman) ]] && red "Foreman is already running, command aborted" && exit 1
-[[ $1 == 'stop' && -z $(prgrep foreman) ]] && red "Foreman is not running, command aborted" && exit 1
+[[ $1 == 'start' && -n $(pgrep foreman) ]] && red "Foreman is already running, command aborted" && exit 1
+[[ $1 == 'stop' && -z $(pgrep foreman) ]] && red "Foreman is not running, command aborted" && exit 1
 [[ ! -f Procfile.dev-hmr ]] && red "Procfile.dev-hmr is required but not found, command Aborted" && exit 1
 
 if [[ $(gem list foreman -i) == 'false' ]]; then
   msg="Installing gem: foreman"
   start_server "$msg"
-  if gem install foreman; then stop_spinner 0; else stop_spinner 1 && exit 1; fi
+  if gem install foreman > /dev/null 2>&1; then stop_spinner 0; else stop_spinner 1 && exit 1; fi
 fi
-
-foreman start -f Procfile.dev-hmr
+sleep 1 && foreman start -f Procfile.dev-hmr
