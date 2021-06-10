@@ -89,10 +89,11 @@ if [[ ! -f config/initializers/react_on_rails.rb ]]; then
   msg="Generating React on Rails Scaffolding"
   [[ $1 == '--use-redux' ]] && optional_flag='--redux' && msg="${msg} with the flag $optional_flag"
   start_spinner "$msg"
-  # rails generate react_on_rails:install $optional_flag
+  cp Gemfile tmp/__
   rails generate react_on_rails:install "$optional_flag" --ignore-warnings --skip --quiet > /dev/null 2>&1
   ec=$?
   if [[ $ec -eq 0 ]]; then
+    mv tmp/__ Gemfile
     stop_spinner 0
   else
     stop_spinner $ec
