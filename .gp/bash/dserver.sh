@@ -18,7 +18,7 @@ c_red='\e[38;5;124m'
 c_end='\e[0m'
 
 red() {
-  echo "$c_red$1$c_end"
+  echo -e "$c_red$1$c_end"
 }
 
 _version() {
@@ -27,11 +27,11 @@ _version() {
 
 _help() {
   echo -e "Start and stop the development server"
-  echo -e "Usage:/n  dserver <[-h | --help | start | stop]>"
+  echo -e "  Usage:/n  dserver <[start | stop | -h | --help | -v | --version]>"
   echo -e "Example 1: Start puma and webpack-dev-server via foreman"
-  echo -e "dserver start"
+  echo -e "  dserver start"
   echo -e "Example 2: Stop puma and webpack-dev-server via foreman"
-  echo -e "dserver stop"
+  echo -e "  dserver stop"
 }
 
 [[ $1 == '-v' || $1 == '--version' ]] && _version && exit 0
