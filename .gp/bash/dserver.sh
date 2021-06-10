@@ -43,7 +43,8 @@ _help() {
 
 if [[ $(gem list foreman -i) == 'false' ]]; then
   msg="Installing gem: foreman"
-  start_server "$msg"
+  start_spinner "$msg"
   if gem install foreman > /dev/null 2>&1; then stop_spinner 0; else stop_spinner 1 && exit 1; fi
 fi
+
 sleep 1 && foreman start -f Procfile.dev-hmr
