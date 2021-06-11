@@ -16,13 +16,10 @@ ports:
     visibility: private
 
 tasks:
-  - init: >
-      bundle install &&
-      rake db:create
-    command: >
-      echo -e '\nWelcome!\nIf you have not created a project yet you can run this command to do so:\n gem install foreman && bundle install && rails webpacker:install && rails webpacker:install:react && git add -A && git commit -m \"Initial scaffolding\" && rails webpacker:install:react && rails generate react_on_rails:install && foreman start -f Procfile.dev-hmr' &&
-      echo -e 'You may start the server with: foreman start -f Procfile.dev-hmr' &&
-      echo -e 'Each terminal that needs access to gems will need to run: bundle install.\nEach terminal that needs access to foreman will need to run: gem install foreman'
+  - init: |
+      bash .gp/bash/init.sh
+    command: |
+      echo -e '\nWelcome!\n' 
 
 vscode:
   extensions:
