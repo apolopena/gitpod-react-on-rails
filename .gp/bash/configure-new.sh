@@ -137,7 +137,7 @@ _configure() {
   _overwrite app/javascript/packs/application.js "$src_prefix"
   _overwrite babel.config.js "$src_prefix"
   _overwrite app/views/hello_world/index.html.erb "$src_prefix/hello_world/"
-  _pass_msg "$c_hot_pink""Project has been configured"
+  _pass_msg "$c_hot_pink""Project has been configured$c_end"
 }
 
 main() {
