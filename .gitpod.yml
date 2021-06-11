@@ -5,7 +5,7 @@ image:
 ports:
   # Rails server
   - port: 3000
-    onOpen: open-preview
+    onOpen: ignore
   # Hot reload server (not currently in use due to gitpod tcp port challenges)
   - port: 3035
     onOpen: ignore
