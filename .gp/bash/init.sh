@@ -15,5 +15,5 @@ if [[ $ec == "0" && ! -f .gp/bash/lock/starter.lock ]]; then
   yes | bash .gp/bash/configure-new.sh
   if [[ ! -d .gp/bash/lock ]]; then mkdir .gp/bash/lock; fi
   touch .gp/bash/lock/starter.lock
-  bash -ic 'dserver start' & sleep 20 && op && sleep 5 && op hello_world
+  bash -ic 'dserver start' & sleep 20 && bash -ic 'op' && sleep 5 && bash -ic 'op hello_world'
 fi
