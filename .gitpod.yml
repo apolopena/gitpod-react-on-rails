@@ -18,8 +18,9 @@ ports:
 tasks:
   - init: |
       bash .gp/bash/init.sh
+  - openMode: split-right
     command: |
-      echo -e '\nWelcome!\n' 
+      bash .gp/bash/ready.sh
 
 vscode:
   extensions:
