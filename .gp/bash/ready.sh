@@ -9,6 +9,7 @@
 
 . .gp/bash/spinner.sh
 
+c_hot_pink="\e[38;5;213m"
 c_green='\e[38;5;76m'
 c_blue='\e[38;5;147m'
 c_end='\e[0m'
@@ -27,8 +28,8 @@ pink () {
 
 setup_msg() {
   pink "Welcome!"
-  green "Your starter project now is being set up now"
-  green "This will take a couple of minutes"
+  green "Your starter project being set up now."
+  green "This will take a couple of minutes."
 }
 
 task1() {
