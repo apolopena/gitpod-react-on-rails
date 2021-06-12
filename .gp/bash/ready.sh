@@ -27,8 +27,8 @@ pink () {
 
 setup_msg() {
   pink "Welcome!"
-  green "Setting up your starter project now..."
-  green "This will take a couple of minutes."
+  green "Your starter project now is being set up now"
+  green "This will take a couple of minutes"
 }
 
 task1() {
