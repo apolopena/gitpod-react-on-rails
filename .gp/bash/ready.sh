@@ -28,7 +28,7 @@ pink () {
 
 setup_msg() {
   pink "Welcome!"
-  green "Your starter project being set up now."
+  green "Your starter project is being set up now."
   green "This will take a couple of minutes."
 }
 
