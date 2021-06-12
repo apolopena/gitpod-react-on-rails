@@ -52,6 +52,7 @@ preview() {
   bash -ic 'op' && sleep 5 && bash -ic 'op hello_world'
 }
 
+clear
 if [[ ! -f .gp/bash/locks/starter.lock ]]; then
   setup_msg; task1; task2; task3; preview
 else
