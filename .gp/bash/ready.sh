@@ -57,5 +57,6 @@ clear
 if [[ ! -f .gp/bash/locks/starter.lock ]]; then
   setup_msg; task1; task2; task3; preview
 else
+  bundle && yarn
   echo "Welcome!"
 fi
