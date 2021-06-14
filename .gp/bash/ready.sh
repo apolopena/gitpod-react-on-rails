@@ -33,11 +33,6 @@ setup_one_time_msg() {
   green "Your starter project is being set up now."
   green "This will take a couple of minutes."
 }
-setup_msg() {
-  pink "Welcome!"
-  green "Your project has already been initially scaffolded."
-  green "Initializing your project. This will take a minute or less."
-}
 
 task1() {
   blue "Installing project gems and creating database..."
@@ -64,8 +59,14 @@ preview() {
   fi
 }
 
+setup_msg() {
+  pink "Welcome!"
+  green "Your project has already been scaffolded."
+  green "Getting your project up and running. This will take a minute or less."
+}
+
 task_a() {
-  blue "Verifying/Installing gems from Gemfile..."
+  blue "Installing gems..."
   gp sync-await task_a > /dev/null 2>&1
 }
 
@@ -77,7 +78,7 @@ task_b() {
 }
 
 task_c() {
-  blue "Verifying and/or creating database..."
+  blue "Creating database..."
   gp sync-await task_c > /dev/null 2>&1
 }
 
@@ -86,8 +87,16 @@ if [[ ! -f .gp/bash/locks/starter.lock ]]; then
   setup_one_time_msg; task1; task2; task3; preview
 else
   if [[ $(bash .gp/bash/helpers.sh is_inited) == 0 ]]; then
-    setup_msg; task_a; task_b; task_c; pink "All Done. You have to setup the server and run the preview yourself."
+    setup_msg; task_a; task_b; task_c; 
+    pink "All Done"
+    echo -e "$c_green""Start the development server with:$c_end$c_blue dserver start$c_end"
+    green "The development server will automatically compile the client assets"
+    echo -e "$c_green""Once client assets are compiled, open a preview with:$c_end$c_blue op hello_world$c_end"
+    echo -e "$c_green""For more help opening a preview run:$c_end$c_blue op --help$c_end"
   else
-    echo "Welcome back again"
+    pink "Welcome back!"
+    orange "The development server and preview browser have been closed"
+    echo -e "$c_green""To start the development server again, run:$c_end$c_blue dserver start$c_end"
+    echo -e "$c_green""To open the preview again run something like:$c_end$c_blue op hello_world$c_end"
   fi
 fi
