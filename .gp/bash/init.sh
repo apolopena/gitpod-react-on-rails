@@ -14,6 +14,7 @@ if [[ ! -f .gp/bash/locks/starter.lock ]]; then
   yes | bash .gp/bash/configure-new.sh && gp sync-done task3 &&
   if [[ ! -d .gp/bash/locks ]]; then mkdir .gp/bash/locks; fi
   touch .gp/bash/locks/starter.lock
+  bash .gp/bash/helpers.sh mark_as_inited
   bash -ic 'dserver start' & sleep 20 && gp sync-done server-ready
 else
   # Hook: if puma is installed, then assume that bundle install has already been called
@@ -30,6 +31,6 @@ else
   if  [[ -z $( psql -tAc "SELECT 1 FROM pg_database WHERE datname='demo_development'" ) ]]; then
     rake db:create
   fi
+  bash .gp/bash/helpers.sh mark_as_inited
   gp sync-done task_c
-  export PROJECT_INITED=yes
 fi
