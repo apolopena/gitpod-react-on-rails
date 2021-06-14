@@ -8,9 +8,8 @@
 # Conditional project setup
 #
 
-bundle install && rake db:create && gp sync-done task1
-ec=$?
-if [[ $ec == "0" && ! -f .gp/bash/locks/starter.lock ]]; then
+if [[ ! -f .gp/bash/locks/starter.lock ]]; then
+  bundle install && rake db:create && gp sync-done task1 &&
   bash .gp/bash/scaffold-react.sh && gp sync-done task2 &&
   yes | bash .gp/bash/configure-new.sh && gp sync-done task3 &&
   if [[ ! -d .gp/bash/locks ]]; then mkdir .gp/bash/locks; fi
@@ -32,4 +31,5 @@ else
     rake db:create
   fi
   gp sync-done task_c
+  export PROJECT_INITED=yes
 fi

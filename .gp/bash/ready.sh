@@ -85,5 +85,9 @@ clear
 if [[ ! -f .gp/bash/locks/starter.lock ]]; then
   setup_one_time_msg; task1; task2; task3; preview
 else
-  setup_msg; task_a; task_b; task_c; pink "All Done. You have to setup the server and run the preview yourself."
+  if [[ -z $PROJECT_INITED ]]; then
+    setup_msg; task_a; task_b; task_c; pink "All Done. You have to setup the server and run the preview yourself."
+  else
+    echo "Welcome back again"
+  fi
 fi
