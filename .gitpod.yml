@@ -5,17 +5,22 @@ image:
 ports:
   # Rails server
   - port: 3000
-    onOpen: open-preview
+    onOpen: ignore
+  # Hot reload server (not currently in use due to gitpod tcp port challenges)
+  - port: 3035
+    onOpen: ignore
+    visibility: private
   # PostgreSQL server
   - port: 5432
     onOpen: ignore
+    visibility: private
 
 tasks:
-  - init: >
-      bundle install &&
-      rake db:create
-    command: >
-      rails server
+  - init: |
+      bash .gp/bash/init.sh
+  - openMode: split-right
+    command: |
+      bash .gp/bash/ready.sh
 
 vscode:
   extensions:
